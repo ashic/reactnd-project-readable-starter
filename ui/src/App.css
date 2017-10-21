@@ -1,0 +1,92 @@
+body {
+  background-color: white !important
+}
+
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.main-content {
+  width: 85%;
+  margin:auto;
+}
+
+
+
+
+ul {
+  list-style-type: none;
+  padding:0
+}
+
+ul.post-list {
+  display: auto;
+}
+
+li.post-list-item>div{
+  margin:0.0em;
+  /* padding: 0.25em 0.5em;
+  */
+}
+
+
+.post-list-item h3 {
+  font-weight: bold;
+  padding: 0em;
+  text-decoration: none !important;
+}
+
+.post-list-item a:hover {
+  text-decoration: none;
+}
+
+.post-list-item .control {
+  margin-top:0.5em;
+  margin-right: 1em;
+}
+
+.vote-score, .comment-count {
+  border: 1px solid #eee;
+  padding: 0.5em 1em;
+  margin:1em 0em;
+  white-space: nowrap;
+}
+
+.vote-score .glyphicon, .comment-count .glyphicon {
+  cursor: pointer;
+  margin: 0.25em;
+}
+
+.vote-score .glyphicon-thumbs-up {
+  color: #080
+}
+.vote-score .glyphicon-thumbs-down {
+  color: #800;
+}
+
