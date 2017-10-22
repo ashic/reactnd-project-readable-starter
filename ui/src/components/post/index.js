@@ -1,35 +1,10 @@
 import React, { Component } from 'react'
-import { Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import _ from 'lodash'
 import * as actions from '../../actions'
-import Voter from '../voter'
-
-class PostView extends Component {
-
-    render() {
-        
-        if (!this.props.id) return (
-            <div />
-        )
-        const { id, title, author, body, timestamp, voteScore } = this.props
-
-        return (
-            <Panel>
-                <h2>{title}</h2>
-                <h4>{author}</h4>
-                <div>{Date(timestamp).toString()}</div>
-                <Voter voteScore={voteScore} postId={id} />
-                <hr />
-                <p>
-                    {body}
-                </p>
-            </Panel>
-        )
-    }
-
-}
+import PostView from './postView'
+import Comments from '../comments'
 
 class Post extends Component {
 
@@ -42,7 +17,9 @@ class Post extends Component {
     __fetchPost(props) {
         if (this.state.post_id !== props.match.params.post_id) {
             this.setState({ post_id: props.match.params.post_id },
-                () => props.dispatch(actions.fetchPost(props.match.params.post_id)))
+                () => {
+                    props.dispatch(actions.fetchPost(props.match.params.post_id))
+                })
         }
     }
 
@@ -55,15 +32,22 @@ class Post extends Component {
     }
 
     render() {
-        return <PostView dispatch={this.props.dispatch} {...this.props.post} />
+        return (
+            <div>
+                <PostView dispatch={this.props.dispatch} {...this.props.post} />
+                <Comments comments={this.props.comments} />
+            </div>
+        )
     }
 
 }
 
 const mapStateToProps = (state, props) => {
-    const post = _.find(state.posts.posts, x => x.id === props.match.params.post_id)
+    const postId = props.match.params.post_id
+    const post = _.find(state.posts.posts, x => x.id === postId)
     return {
-        post: _.clone(post)
+        post: _.clone(post),
+        comments: _.get(state.posts, `comments.${postId}`)
     }
 }
 

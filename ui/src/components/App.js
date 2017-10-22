@@ -16,9 +16,9 @@ class App extends Component {
         <Header />
         <div className='main-content'>
           <Switch>
-          <Route exact path='/' component={Posts}/>
-          <Route exact path='/:category' component={Posts} />
-          <Route exact path='/:category/:post_id' component={Post} />
+            <Route exact path='/' component={Posts} />
+            <Route exact path='/:category' component={Posts} />
+            <Route exact path='/:category/:post_id' component={Post} />
           </Switch>
         </div>
       </div>

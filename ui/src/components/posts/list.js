@@ -4,6 +4,7 @@ import { Panel, Row, Col, Grid, Button } from 'react-bootstrap'
 import Voter from '../voter'
 import CommentCount from './comment-count'
 import {Link} from 'react-router-dom'
+import * as actions from '../../actions'
 
 /*Listed posts are displayed with 
 title, 
@@ -30,7 +31,7 @@ const ListItem = ({ id, category, title, author, voteScore, comments, deleted })
                 <Row>
                     <Col>{author}</Col>
                     <Col mdOffset={10} className='control'>
-                        <Voter voteScore={voteScore} postId={id} />
+                        <Voter voteScore={voteScore} id={id} onVote={actions.votePost} />
                         <CommentCount count={comments} />
                     </Col>
                 </Row>

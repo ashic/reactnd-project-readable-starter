@@ -31,7 +31,7 @@ export const categoriesFetched = (categories) => ({
 })
 
 const dispatchPostsFetched = (json, dispatch) => {
-    const p = dispatch(postsFetched(json))
+    dispatch(postsFetched(json))
     const cs = _.map(json, x =>
         api.fetchComments(x.id)
             .then(js => dispatch(commentsFetched(x.id, js))
@@ -43,7 +43,11 @@ export const fetchPosts = () => dispatch =>
     api.fetchPosts()
         .then(json => dispatchPostsFetched(json, dispatch))
 
-export const fetchPost = (postId) => dispatch => api.fetchPost(postId).then(json => dispatch(postFetched(json)))
+export const fetchPost = (postId) => dispatch => 
+    api.fetchPost(postId)
+        .then(json => dispatch(postFetched(json)))
+        .then(() => api.fetchComments(postId).then(js => dispatch(commentsFetched(postId, js))))
+
 export const fetchPostsForCategory = (category) => dispatch =>
     api.fetchPostsForCategory(category).then(json => dispatchPostsFetched(json, dispatch))
 
@@ -52,6 +56,11 @@ export const votePost = (postId, option) => disptach =>
         .then(post => disptach(postFetched(post)))
         .then(() => toastr.success("Vote posted.", "Your vote was registered successfully."))
 
+
+export const voteComment = (commentId, option) => dispatch => 
+    api.voteComment(commentId, option)
+        .then(comment => dispatch(commentsFetched(comment.parentId, [comment])))
+        .then(() => toastr.success("Vote posted.", "Your vote was registered successfully."))
 
 export const fetchCategories = () => dispatch =>
     api.fetchCategories()

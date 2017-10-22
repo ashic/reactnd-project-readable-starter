@@ -15,10 +15,14 @@ export const fetchPosts = () => doFetch('/posts').then(x => x.json())
 export const fetchPostsForCategory = (category) => doFetch(`/${category}/posts`).then(x => x.json())
 export const fetchPost = (postId) => doFetch(`/posts/${postId}`).then(x => x.json())
 
-export const votePost = (postId, option) => doFetch(`/posts/${postId}`, {
+const vote = (type, id, option) => doFetch(`/${type}/${id}`, {
     method: 'POST',
     body: JSON.stringify({ option: option })
 }).then(x => x.json())
+
+export const votePost = (id, option) => vote("posts", id, option)
+export const voteComment = (id, option) => vote("comments", id, option)
+
 
 export const fetchComments = (postId) => doFetch(`/posts/${postId}/comments`).then(x => x.json())
 
