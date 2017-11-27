@@ -38,6 +38,10 @@ export const editPost = (data) => doFetch(`/posts/${data.id}`, {
     body: JSON.stringify(data)
     }).then(x => x.json)
 
+export const deletePost = id => doFetch(`/posts/${id}`, {
+    method: 'DELETE'
+})
+
 export const fetchComments = (postId) => doFetch(`/posts/${postId}/comments`).then(x => x.json())
 
 export const fetchCategories = () => doFetch("/categories").then(x => x.json())

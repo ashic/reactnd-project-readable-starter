@@ -59,11 +59,15 @@ class me extends Component {
         this.props.dispatch(actions.showPostEditForm(post))
     }    
 
+    deletePost(id) {
+        this.props.dispatch(actions.deletePost(id))
+    }
+
     render() {
         return (
             <div>
                 <Tools categories={this.props.categories} selected={this.props.match.params.category}/>
-                <Posts postSummaries={this.props.postSummaries} onEdit={id => this.showPostEdit(id)} />
+                <Posts postSummaries={this.props.postSummaries} onEdit={id => this.showPostEdit(id)} onDelete={id => this.deletePost(id)} />
             </div>
         ) 
     }

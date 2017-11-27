@@ -21,7 +21,7 @@ List pages (root or category) include a mechanism for sorting by date or by scor
 
 */
 
-const ListItem = ({ id, category, title, author, voteScore, comments, deleted, onEdit }) => ( !deleted && 
+const ListItem = ({ id, category, title, author, voteScore, comments, deleted, onEdit, onDelete }) => ( !deleted && 
     <li key={id} className='post-list-item'>
         <Panel>
             <Grid fluid>
@@ -38,7 +38,7 @@ const ListItem = ({ id, category, title, author, voteScore, comments, deleted, o
                 <Row>
                     <Col>
                         <Button bsSize='xsmall' className='btn-raised' onClick={() => onEdit && onEdit(id)}><span className='glyphicon glyphicon-edit'></span></Button>
-                        <Button bsSize='xsmall' bsStyle='danger' className='btn-raised'><span className='glyphicon glyphicon-remove'></span></Button>
+                        <Button bsSize='xsmall' bsStyle='danger' className='btn-raised' onClick={()=> onDelete && onDelete(id)}><span className='glyphicon glyphicon-remove'></span></Button>
                     </Col>
                 </Row>
             </Grid>
@@ -47,8 +47,8 @@ const ListItem = ({ id, category, title, author, voteScore, comments, deleted, o
 )
 
 
-export default ({ postSummaries, onEdit }) => (
+export default ({ postSummaries, onEdit, onDelete }) => (
     <ul className='post-list'>
-        {_.map(postSummaries, p => <ListItem key={p.id} {...p} onEdit={id => onEdit(id)} />)}
+        {_.map(postSummaries, p => <ListItem key={p.id} {...p} onEdit={id => onEdit(id)} onDelete={id => onDelete(id)} />)}
     </ul>
 )

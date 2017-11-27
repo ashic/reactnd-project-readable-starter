@@ -41,10 +41,15 @@ class Post extends Component {
         this.props.dispatch(actions.showNewPostForm(this.props.categories))
     }
 
+    deletePost() {
+        this.props.dispatch(actions.deletePost(this.props.post.id))
+            .then(()=> this.props.history.push('/'))
+    }
+
     render() {
         return (
             <div>
-                <Tools onEdit={ () => this.showEdit() } onCreate={ () => this.showCreate() } />
+                <Tools onEdit={ () => this.showEdit() } onCreate={ () => this.showCreate() } onDelete={ () => this.deletePost() } />
                 <PostView dispatch={this.props.dispatch} {...this.props.post} />
                 <Comments comments={this.props.comments} postId={this.props.match.params.post_id} />
             </div>

@@ -5,6 +5,7 @@ import { toastr } from 'react-redux-toastr'
 
 export const POSTS_FETCHED = 'POSTS_FETCHED'
 export const POST_FETCHED = 'POST_FETCHED'
+export const POST_DELETED = 'POST_DELETED'
 export const COMMENTS_FETCHED = 'COMMENTS_FETCHED'
 export const CATEGORIES_FETCHED = 'CATEGORIES_FETCHED'
 export const SORT_POSTS = 'SORT_POSTS'
@@ -26,6 +27,11 @@ export const commentsFetched = (postId, comments) => ({
     type: COMMENTS_FETCHED,
     postId,
     comments
+})
+
+export const postDeleted = id => ({ 
+    type: POST_DELETED,
+    id 
 })
 
 export const categoriesFetched = (categories) => ({
@@ -123,6 +129,14 @@ export const showNewPostForm = (categories) => dispatch => {
 
     })
 }
+
+export const deletePost = id => dispatch =>
+    api.deletePost(id)
+        .then(x => {
+            dispatch(postDeleted(id))
+            toastr.success("Post deleted.", "The post was deleted successfully.")
+            return x
+        })
 
 
 export const showForm = ({title, schema, uiSchema, data}) => ({
