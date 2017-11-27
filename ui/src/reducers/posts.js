@@ -20,7 +20,7 @@ export default (state = { posts: [], comments: {}, sort: { key: null, dir: -1 } 
             var commentsForPost = _.clone(_.get(state.comments, action.postId))
             for (var c in action.comments) {
                 const comment = action.comments[c]
-                commentsForPost = _.map(commentsForPost, cp => cp.id == comment.id ? _.merge(cp, comment) : cp)
+                commentsForPost = _.map(commentsForPost, cp => cp.id === comment.id ? _.merge(cp, comment) : cp)
             }
 
             const newComments = _.filter(action.comments, ac => _.isEmpty(_.filter(commentsForPost, cp => cp.id === ac.id)))
@@ -52,6 +52,12 @@ export default (state = { posts: [], comments: {}, sort: { key: null, dir: -1 } 
             return {
                 ...state,
                 posts: _.filter(state.posts, x => x.id !== action.id)
+            }
+
+        case actions.COMMENT_DELETED:
+            return {
+                ...state,
+                comments: _.mapValues(state.comments, cs => _.filter(cs, c => c.id !== action.id))
             }
 
         default:

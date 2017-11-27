@@ -1,10 +1,7 @@
 
-import React, { Component } from 'react'
-import { Navbar, Nav, NavDropdown, MenuItem, Panel, NavItem } from 'react-bootstrap'
-import _ from 'lodash'
-import { LinkContainer } from 'react-router-bootstrap'
+import React from 'react'
+import { Navbar } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import * as actions from '../../actions'
 import { NavLink } from 'react-router-dom';
 
 export default connect(null)(({ categories, selected, dispatch, onEdit, onCreate, onDelete }) => (

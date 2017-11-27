@@ -6,21 +6,6 @@ import CommentCount from './comment-count'
 import {Link} from 'react-router-dom'
 import * as actions from '../../actions'
 
-/*Listed posts are displayed with 
-title, 
-author, 
-number of comments, 
-current score, 
-and a voting mechanism to upvote or downvote the post. 
-Posts should have buttons or links for editing or deleting that post.
-
-
-All posts for a category are listed at /:category
-
-List pages (root or category) include a mechanism for sorting by date or by score (at a minimum) and the sort works properly
-
-*/
-
 const ListItem = ({ id, category, title, author, voteScore, comments, deleted, onEdit, onDelete }) => ( !deleted && 
     <li key={id} className='post-list-item'>
         <Panel>

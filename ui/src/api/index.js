@@ -28,6 +28,11 @@ export const postComment = (data) => doFetch('/comments', {
     body: JSON.stringify(data)
     }).then(x=> x.json())
 
+export const editComment = (data) => doFetch(`/comments/${data.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data)
+    }).then(x => x.json())
+
 export const newPost = (data) => doFetch('/posts', {
     method: 'POST',
     body: JSON.stringify(data)
@@ -39,6 +44,10 @@ export const editPost = (data) => doFetch(`/posts/${data.id}`, {
     }).then(x => x.json)
 
 export const deletePost = id => doFetch(`/posts/${id}`, {
+    method: 'DELETE'
+})
+
+export const deleteComment = id => doFetch(`/comments/${id}`, {
     method: 'DELETE'
 })
 

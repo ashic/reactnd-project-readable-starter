@@ -7,20 +7,6 @@ import * as actions from '../../actions'
 import { withRouter } from 'react-router'
 import _ from 'lodash'
 
-/*Listed posts are displayed with 
-title, 
-author, 
-number of comments, 
-current score, 
-and a voting mechanism to upvote or downvote the post. 
-Posts should have buttons or links for editing or deleting that post.
-
-
-All posts for a category are listed at /:category
-
-List pages (root or category) include a mechanism for sorting by date or by score (at a minimum) and the sort works properly
-
-*/
 class me extends Component {
 
     constructor(...args) {

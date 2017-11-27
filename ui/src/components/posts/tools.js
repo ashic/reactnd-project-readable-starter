@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Panel } from 'react-bootstrap'
 import _ from 'lodash'
 import { LinkContainer } from 'react-router-bootstrap'

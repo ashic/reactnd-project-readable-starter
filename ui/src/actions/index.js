@@ -7,6 +7,7 @@ export const POSTS_FETCHED = 'POSTS_FETCHED'
 export const POST_FETCHED = 'POST_FETCHED'
 export const POST_DELETED = 'POST_DELETED'
 export const COMMENTS_FETCHED = 'COMMENTS_FETCHED'
+export const COMMENT_DELETED = 'COMMENT_DELETED'
 export const CATEGORIES_FETCHED = 'CATEGORIES_FETCHED'
 export const SORT_POSTS = 'SORT_POSTS'
 export const CLOSE_FORM = 'CLOSE_FORM'
@@ -34,6 +35,11 @@ export const postDeleted = id => ({
     id 
 })
 
+export const commentDeleted = id => ({
+    type: COMMENT_DELETED,
+    id
+})
+
 export const categoriesFetched = (categories) => ({
     type: CATEGORIES_FETCHED,
     categories
@@ -41,7 +47,7 @@ export const categoriesFetched = (categories) => ({
 
 const dispatchPostsFetched = (json, dispatch) => {
     dispatch(postsFetched(json))
-    const cs = _.map(json, x =>
+    _.map(json, x =>
         api.fetchComments(x.id)
             .then(js => dispatch(commentsFetched(x.id, js))
             )
@@ -91,7 +97,30 @@ export const showCommentForm = (formData) => dispatch => {
                 api.postComment(data).then(x => {
                     dispatch(fetchPost(formData.parentId));
                     dispatch(closeForm())
+                    toastr.success("Comment posted.", "Your comment was posted successfully.")
                 })
+    })
+}
+
+export const showEditCommentForm = (formData, parentId) => dispatch => {
+    dispatch({
+        type: SHOW_FORM,
+        ...schema.commentEditForm(),
+        data: formData,
+        onSubmit:
+            data => 
+                api.editComment(data).then(x => {
+                    dispatch(fetchPost(parentId));
+                    dispatch(closeForm())
+                    toastr.success("Post updated.", "Your post was updated successfully.")
+                })
+    })
+}
+
+export const deleteComment = id => dispatch => {
+    api.deleteComment(id).then(()=> {
+        toastr.success("Comment deleted.", "The commend was successfully deleted.")
+        dispatch(commentDeleted(id))
     })
 }
 
@@ -138,7 +167,7 @@ export const deletePost = id => dispatch =>
             return x
         })
 
-
+    
 export const showForm = ({title, schema, uiSchema, data}) => ({
     type: SHOW_FORM,
     title,
