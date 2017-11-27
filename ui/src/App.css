@@ -62,7 +62,7 @@ li.post-list-item>div{
   text-decoration: none !important;
 }
 
-.post-list-item a:hover {
+.post-list-item a:hover, .post-nav-bar a {
   text-decoration: none;
 }
 
@@ -70,6 +70,14 @@ li.post-list-item>div{
   margin-top:0.5em;
   margin-right: 1em;
 }
+
+.post-nav-bar span {
+  color: #fff;
+  font-size: 1.5em;
+  margin-top:0.5em;
+  margin-right: 1em;
+}
+
 
 .vote-score, .comment-count {
   border: 1px solid #eee;
@@ -90,3 +98,20 @@ li.post-list-item>div{
   color: #800;
 }
 
+.form-group {
+  margin: 0;
+}
+
+fieldset .field {
+  margin-top:0;
+  
+}
+
+.modal-content .modal-body {
+  padding-top:0;
+}
+
+.modal-title {
+  font-weight: bold;
+  font-size: 3em
+}

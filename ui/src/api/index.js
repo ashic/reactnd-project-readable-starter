@@ -23,6 +23,20 @@ const vote = (type, id, option) => doFetch(`/${type}/${id}`, {
 export const votePost = (id, option) => vote("posts", id, option)
 export const voteComment = (id, option) => vote("comments", id, option)
 
+export const postComment = (data) => doFetch('/comments', {
+    method: 'POST',
+    body: JSON.stringify(data)
+    }).then(x=> x.json())
+
+export const newPost = (data) => doFetch('/posts', {
+    method: 'POST',
+    body: JSON.stringify(data)
+}).then(x => x.json)
+
+export const editPost = (data) => doFetch(`/posts/${data.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data)
+    }).then(x => x.json)
 
 export const fetchComments = (postId) => doFetch(`/posts/${postId}/comments`).then(x => x.json())
 

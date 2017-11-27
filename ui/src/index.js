@@ -10,6 +10,7 @@ import thunk from 'redux-thunk'
 import ReduxToastr from 'react-redux-toastr'
 import { BrowserRouter } from 'react-router-dom'
 import reducer from './reducers'
+import * as actions from './actions'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -36,3 +37,5 @@ ReactDOM.render(
     </BrowserRouter>
     , document.getElementById('root'));
 registerServiceWorker();
+
+store.dispatch(actions.fetchCategories())

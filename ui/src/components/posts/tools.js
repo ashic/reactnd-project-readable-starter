@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavDropdown, MenuItem, Panel } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Panel } from 'react-bootstrap'
 import _ from 'lodash'
 import { LinkContainer } from 'react-router-bootstrap'
 import {connect} from 'react-redux'
@@ -28,6 +28,7 @@ export default connect(null)(({ categories, selected, dispatch }) => (
                     <MenuItem eventKey={"timestamp"}>Date</MenuItem>
                     <MenuItem eventKey={"voteScore"}>Score</MenuItem>
                 </NavDropdown>
+                <NavItem onSelect={() => dispatch(actions.showNewPostForm(categories))}><span className='glyphicon glyphicon-plus'></span></NavItem>
             </Nav>
         </Navbar>
         <Panel>

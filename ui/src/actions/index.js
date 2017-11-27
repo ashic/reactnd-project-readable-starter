@@ -1,5 +1,6 @@
 import * as api from '../api'
-import _ from 'lodash'
+import * as schema from './schemas'
+import _ from 'lodash-uuid'
 import { toastr } from 'react-redux-toastr'
 
 export const POSTS_FETCHED = 'POSTS_FETCHED'
@@ -7,6 +8,8 @@ export const POST_FETCHED = 'POST_FETCHED'
 export const COMMENTS_FETCHED = 'COMMENTS_FETCHED'
 export const CATEGORIES_FETCHED = 'CATEGORIES_FETCHED'
 export const SORT_POSTS = 'SORT_POSTS'
+export const CLOSE_FORM = 'CLOSE_FORM'
+export const SHOW_FORM = 'SHOW_FORM'
 
 export const postsFetched = (posts) => ({
     type: POSTS_FETCHED,
@@ -69,4 +72,67 @@ export const fetchCategories = () => dispatch =>
 export const sortPosts = (field) => ({
     type: SORT_POSTS,
     field
+})
+
+
+export const showCommentForm = (formData) => dispatch => {
+    dispatch({
+        type: SHOW_FORM,
+        ...schema.commentsForm(),
+        data: formData,
+        onSubmit: 
+            data => 
+                api.postComment(data).then(x => {
+                    dispatch(fetchPost(formData.parentId));
+                    dispatch(closeForm())
+                })
+    })
+}
+
+export const showPostEditForm = (formData) => dispatch => {
+    dispatch({
+        type: SHOW_FORM,
+        ...schema.postEditForm(),
+        data: formData,
+        onSubmit: 
+            data =>
+                api.editPost(data).then(x => {
+                     dispatch(fetchPost(formData.id));
+                     dispatch(closeForm())
+                     toastr.success("Post updated.", "Your post was updated successfully.")
+                })
+
+    })
+}
+
+export const showNewPostForm = (categories) => dispatch => {
+    dispatch({
+        type: SHOW_FORM,
+        ...schema.newPostForm(categories),
+        data: {
+            id: _.uuid(),
+            timestamp: Date.now()
+        },
+        onSubmit: 
+            data =>
+                api.newPost(data).then(() => {
+                    dispatch(fetchPost(data.id));
+                    dispatch(closeForm())
+                    toastr.success("Post created.", "Your post was created successfully.")
+                })
+
+    })
+}
+
+
+export const showForm = ({title, schema, uiSchema, data}) => ({
+    type: SHOW_FORM,
+    title,
+    schema,
+    uiSchema,
+    data
+})
+
+export const closeForm = () => ({
+  type: CLOSE_FORM
 })

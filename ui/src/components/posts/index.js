@@ -30,7 +30,6 @@ class me extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(actions.fetchCategories())
         this.load(this.props, true)
     }
 
@@ -55,11 +54,16 @@ class me extends Component {
 
     }
 
+    showPostEdit(id) {
+        const post = _.find(this.props.postSummaries, x => x.id === id)
+        this.props.dispatch(actions.showPostEditForm(post))
+    }    
+
     render() {
         return (
             <div>
                 <Tools categories={this.props.categories} selected={this.props.match.params.category}/>
-                <Posts postSummaries={this.props.postSummaries} />
+                <Posts postSummaries={this.props.postSummaries} onEdit={id => this.showPostEdit(id)} />
             </div>
         ) 
     }

@@ -22,7 +22,7 @@ export default (state = {posts: [], comments: {}, sort: {key:null, dir: -1}}, ac
             }
 
             const newComments = _.filter(action.comments, ac => _.isEmpty(_.filter(commentsForPost, cp => cp.id === ac.id)))
-            const allComments = [...commentsForPost, ...newComments]
+            const allComments = [...(commentsForPost || []), ...newComments]
             
             return {
                 ...state,

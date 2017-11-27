@@ -5,9 +5,11 @@
   "dependencies": {
     "bootstrap-material-design": "0.5.10",
     "lodash": "^4.17.4",
+    "lodash-uuid": "^0.0.3",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^16.0.0",
+    "react-jsonschema-form": "^0.51.0",
     "react-redux": "^5.0.6",
     "react-redux-toastr": "^7.1.5",
     "react-router-bootstrap": "^0.24.4",
