@@ -6,13 +6,12 @@ import * as actions from '../../actions'
 import Tools from './tools'
 import PostView from './postView'
 import Comments from '../comments'
-import {Redirect} from 'react-router-dom'
 
 class Post extends Component {
 
     constructor(...args) {
         super(...args)
-        this.state = { post_id: null }
+        this.state = { post_id: null, show: false }
     }
 
 
@@ -21,6 +20,10 @@ class Post extends Component {
             this.setState({ post_id: props.match.params.post_id },
                 () => {
                     props.dispatch(actions.fetchPost(props.match.params.post_id))
+                        .then(() => this.setState({ show: true }))
+                        .catch(err =>
+                            this.props.history.push('/not-found')
+                        )
                 })
         }
     }
@@ -44,17 +47,21 @@ class Post extends Component {
 
     deletePost() {
         this.props.dispatch(actions.deletePost(this.props.post.id))
-            .then(()=> this.props.history.push('/'))
+            .then(() => this.props.history.push('/'))
     }
 
     render() {
-        return this.props.post ? (
+        return (
             <div>
-                <Tools onEdit={ () => this.showEdit() } onCreate={ () => this.showCreate() } onDelete={ () => this.deletePost() } />
-                <PostView dispatch={this.props.dispatch} {...this.props.post} />
-                <Comments comments={this.props.comments} postId={this.props.match.params.post_id} />
+                {this.state.show &&
+                    <div>
+                        <Tools onEdit={() => this.showEdit()} onCreate={() => this.showCreate()} onDelete={() => this.deletePost()} />
+                        <PostView dispatch={this.props.dispatch} {...this.props.post} />
+                        <Comments comments={this.props.comments} postId={this.props.match.params.post_id} />
+                    </div>
+                }
             </div>
-        ) : <Redirect to='/not-found' />
+        )
     }
 
 }
