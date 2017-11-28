@@ -4,6 +4,7 @@ export const commentsForm = () => {
 
     const schema = {
         type: "object",
+        required: ['body', 'author'],
         properties: {
             id: { type: "string" },
             parentId: { type: "string" },
@@ -32,6 +33,7 @@ export const commentEditForm = () => {
 
     const schema = {
         type: "object",
+        required: ['body'],
         properties: {
             id: { type: "string" },
             timestamp: { type: "integer" },
@@ -56,6 +58,7 @@ export const commentEditForm = () => {
 export const postEditForm = () => {
     const schema = {
         type: "object",
+        required: ["title", "body"],
         properties: {
             id: { type: "string" },
             title: { type: "string" },
@@ -80,6 +83,7 @@ export const postEditForm = () => {
 export const newPostForm = (categories) => {
     const schema = {
         type: "object",
+        required: ["title", "body", "author", "category"],
         properties: {
             id: { type: "string" },
             author: { type: "string", title: "Author" },

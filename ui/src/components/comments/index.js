@@ -31,7 +31,7 @@ class Comments extends Component {
     render() {
         return (
             <div>
-                <h3>Comments</h3>
+                <h3>Comments { `(${_.size(this.props.comments)})`}</h3>
                 <Button bsSize='large' className='btn-raised'
                     onClick={() => this.showCommentForm()}>
                     <span className='glyphicon glyphicon-plus-sign'></span>

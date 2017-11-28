@@ -2,6 +2,9 @@ body {
   background-color: white !important
 }
 
+a, a:hover {
+    text-decoration: none !important
+}
 
 .App {
   text-align: center;

@@ -6,6 +6,7 @@ import * as actions from '../../actions'
 import Tools from './tools'
 import PostView from './postView'
 import Comments from '../comments'
+import {Redirect} from 'react-router-dom'
 
 class Post extends Component {
 
@@ -47,13 +48,13 @@ class Post extends Component {
     }
 
     render() {
-        return (
+        return this.props.post ? (
             <div>
                 <Tools onEdit={ () => this.showEdit() } onCreate={ () => this.showCreate() } onDelete={ () => this.deletePost() } />
                 <PostView dispatch={this.props.dispatch} {...this.props.post} />
                 <Comments comments={this.props.comments} postId={this.props.match.params.post_id} />
             </div>
-        )
+        ) : <Redirect to='/not-found' />
     }
 
 }
