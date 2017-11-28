@@ -62,7 +62,7 @@ export const fetchPost = (postId) => dispatch =>
     api.fetchPost(postId)
         .then(json =>
             api.fetchComments(postId).then(cjs => {
-                if (json.error) {
+                if (!json.id) {
                     throw new Error(json.error)
                 }
                 var postDispatch = dispatch(postFetched(json))
